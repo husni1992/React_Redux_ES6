@@ -21,17 +21,29 @@ class CoursesPage extends React.Component {
     }
 
     onClickSave() {
-        this.props.dispatch(courseActions.createCourse(this.state.course));
+        this.props.createCourse(this.state.course);
+        this.setState({ course: { title: '' } });
+    }
+
+    courseRow(course, index) {
+        return <div key={index}>{course.title}</div>;
     }
 
     render() {
+        debugger
         return (
             <div>
                 <h1>Courses</h1>
+                {this.props.courses.map(this.courseRow)}
                 <h2>Add Course</h2>
                 <input
                     type="text"
                     onChange={this.onTitleChange}
+                    onKeyPress={function (evt) {
+                        if (evt.charCode == 13) {
+                            this.onClickSave();
+                        }
+                    }.bind(this)}
                     value={this.state.course.title} />
 
                 <input
@@ -43,14 +55,22 @@ class CoursesPage extends React.Component {
     }
 }
 
+CoursesPage.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    courses: PropTypes.array.isRequired,
+    createCourse: PropTypes.func.isRequired
+};
+
 function mapSateToProps(state, ownProps) {
     return {
         courses: state.courses
     };
 }
 
-function mapDispatchToProps() {
-
+function mapDispatchToProps(dispatch) {
+    return {
+        createCourse: course => dispatch(courseActions.createCourse(course))
+    };
 }
 
-export default connect(mapSateToProps)(CoursesPage);
+export default connect(mapSateToProps, mapDispatchToProps)(CoursesPage);
