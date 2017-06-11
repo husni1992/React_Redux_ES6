@@ -6,6 +6,6 @@ export default function configureStore(initialState) {
     return createStore(
         rootReducer,
         initialState,
-        applyMiddleware(reduxImmutableStateInvariant())
+        applyMiddleware(reduxImmutableStateInvariant()) // this prevents mutating state in the reducer
     )
 }
