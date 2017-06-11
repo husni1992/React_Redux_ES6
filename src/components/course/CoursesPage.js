@@ -9,16 +9,12 @@ class CoursesPage extends React.Component {
         super(props, context);
     }
 
-    courseRow(course, index) {
-        return <div key={index}>{course.title}</div>;
-    }
-
     render() {
+        const {courses} = this.props; // this assigns this.props.courses to const courses
         return (
             <div>
                 <h1>Courses</h1>
-                {/*{this.props.courses.map(this.courseRow)}*/}
-                <CourseList courses={this.props.courses} />
+                <CourseList courses={courses} />
             </div>
         );
     }
