@@ -8,5 +8,5 @@ export default function configureStore(initialState) {
         rootReducer,
         initialState,
         applyMiddleware(thunk, reduxImmutableStateInvariant()) // this prevents mutating state in the reducer
-    )
+    );
 }

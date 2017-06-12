@@ -4,7 +4,7 @@ const TextInput = ({ name, label, onChagne, placeholder, value, error }) => {
     let wrapperClass = "form-group";
     if (error && error.length > 0) {
         wrapperClass += " " + "has-error";
-    };
+    }
 
     return (
         <div className={wrapperClass}>

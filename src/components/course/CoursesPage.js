@@ -28,6 +28,7 @@ CoursesPage.propTypes = {
 function mapSateToProps(state, ownProps) {
     return {
         courses: state.courses
+        // authors: state.authors
     };
 }
 
