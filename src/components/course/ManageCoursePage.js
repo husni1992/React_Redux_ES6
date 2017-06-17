@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 
+
 class ManageCoursePage extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -15,6 +16,7 @@ class ManageCoursePage extends React.Component {
 
         this.updateCourseState = this.updateCourseState.bind(this);
         this.textChangeHandler = this.textChangeHandler.bind(this);
+        this.saveCourse = this.saveCourse.bind(this);
     }
 
     componentWillMount() {
@@ -34,7 +36,13 @@ class ManageCoursePage extends React.Component {
         const field = event.target.name;
         let course = this.state.course;
         course[field] = event.target.value;
+        courseActions.saveCourse(course);
         return this.setState({ course: course });
+    }
+
+    saveCourse(event) {
+        event.preventDefault();
+        this.props.actions.saveCourse(this.state.course);
     }
 
     render() {
@@ -44,6 +52,7 @@ class ManageCoursePage extends React.Component {
                 <CourseForm
                     course={this.state.course}
                     onChange={this.updateCourseState}
+                    onSave={this.saveCourse}
                     allAuthors={this.props.authors}
                     errors={this.state.errors} />
             </div>
@@ -53,7 +62,8 @@ class ManageCoursePage extends React.Component {
 
 ManageCoursePage.propTypes = {
     course: PropTypes.object.isRequired,
-    authors: PropTypes.array.isRequired
+    authors: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
 };
 
 function mapSateToProps(state, ownProps) {
