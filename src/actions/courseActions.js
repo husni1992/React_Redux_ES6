@@ -24,7 +24,6 @@ export function loadCourses() {
 }
 
 export function saveCourse(course){
-    debugger
     return function(dispatch, getState){
         return CourseApi.saveCourse(course).then(savedCourse => {
             course.id ? dispatch(updateCoursesSuccess(savedCourse)) : 
